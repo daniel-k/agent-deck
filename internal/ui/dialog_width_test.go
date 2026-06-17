@@ -46,6 +46,16 @@ func TestFitDialogWidth(t *testing.T) {
 	}
 }
 
+// TestDialogWidth_RemoteSessionsNotApplicable documents, per the internal/ui
+// RemoteSession coverage guideline, that nothing here needs a RemoteSession
+// case: fitDialogWidth and centerInScreen are pure layout geometry — they take
+// a terminal width and string content and never branch on session type, so
+// local vs. remote (SSH) sessions are indistinguishable to them. Mirrors
+// TestSessionSwitcher_RemoteSessionsUnsupported's documented-skip convention.
+func TestDialogWidth_RemoteSessionsNotApplicable(t *testing.T) {
+	t.Skip("not applicable: fitDialogWidth/centerInScreen are session-agnostic geometry helpers")
+}
+
 // TestCenterInScreen_MeasuresDisplayCellsNotBytes guards the centering fix:
 // content is centered by its display width (cellWidth), not its byte length.
 // "日本語" is 6 cells but 9 bytes, so byte-based centering would under-pad it.
